@@ -1,0 +1,1347 @@
+{
+	"info": {
+		"_postman_id": "60b05bee-651c-4a78-8f60-ebf83a7983b4",
+		"name": "TODO>LY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "token Authentication  API Methods",
+			"item": [
+				{
+					"name": "authentication/isauthenticated.json",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}authentication/isauthenticated.json",
+							"host": [
+								"{{url}}authentication"
+							],
+							"path": [
+								"isauthenticated.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authentication/token.xml",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}authentication/token.xml",
+							"host": [
+								"{{url}}authentication"
+							],
+							"path": [
+								"token.xml"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authentication/token.json",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}authentication/token.json",
+							"host": [
+								"{{url}}authentication"
+							],
+							"path": [
+								"token.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User API Methods",
+			"item": [
+				{
+					"name": "user.json- Create new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Variable\r",
+									" var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//pm.test(\"Account with this email address already exists \", function () {\r",
+									" //   pm.expect(pm.response.text()).to.include(\"kad021@email.com\");\r",
+									"//});\r",
+									"\r",
+									"pm.test(\"Response time is less than 350ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check  Data type Account\", function () {\r",
+									"//   var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Email).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.FullName).to.be.a(\"string\");\r",
+									"    pm.expect(jsonData.Password).to.eql(null);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test Data is correct\", function () {\r",
+									"//   var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Email).to.eql(\"kad021@email.com\");\r",
+									"    pm.expect(jsonData.FullName).to.eql(\"KadFlores\");\r",
+									"    pm.expect(jsonData.Password).to.eql(null);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check  Account with this email address already exists\", function () {\r",
+									"//   var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(201);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"email\", \"kad021@email.com\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"Email\": \"{{email}}\",\r\n        \"FullName\": \"KadFlores\",\r\n        \"Password\": \"kad123\"\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{url}}user.json",
+							"host": [
+								"{{url}}user",
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"\r",
+									"});\r",
+									"//pm.test(\"Body matches string\", function () {\r",
+									" //   pm.expect(pm.response.text()).to.include(\"kad021@email.com\");\r",
+									"//});\r",
+									"pm.test(\"Response time is less than 250ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(250);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"/// Varible\r",
+									"  var jsonData = pm.response.json();\r",
+									"pm.test(\"Chek Account\", function () {\r",
+									"   \r",
+									"    pm.expect(jsonData.Id).to.be.a(\"number\");\r",
+									"    pm.expect(jsonData.Email).to.be.a(\"string\");\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check Password igual null\", function () {\r",
+									"    pm.expect(jsonData.Password).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"//   var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user.json",
+							"host": [
+								"{{url}}user",
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/0.xml - update passwor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check Password \", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Password).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    \r",
+									"    pm.response.to.be.json;\r",
+									"   // pm.response.to.be.ok;\r",
+									"    //pm.response.to.be.withBody;\r",
+									"});\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserObject\":{\r\n        \"Password\": \"123456\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}user/0.json",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"0.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/0.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 350ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"\r",
+									"//\r",
+									" var jsonData = pm.response.json();\r",
+									"pm.test(\"Delete user\", function () {\r",
+									"    pm.expect(jsonData.Id).to.eql(pm.environment.get(\"id\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user/0.json",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"0.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects API Methods",
+			"item": [
+				{
+					"name": "projects.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    \r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects.json",
+							"host": [
+								"{{url}}projects",
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projects.xml - create a new project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<ProjectObject>\r\n  <Content>My New Project 3</Content>\r\n  <Icon>4</Icon>\r\n</ProjectObject>"
+						},
+						"url": {
+							"raw": "{{url}}projects.xml",
+							"host": [
+								"{{url}}projects",
+								"xml"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projects/ID.json - Get project by  id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    \r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects/3926183.json",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"3926183.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projects/ID.json  - Update Project by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n        \"Icon\": \"5\"\r\n   \r\n}"
+						},
+						"url": {
+							"raw": "{{url}}projects/3925922.json",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"3925922.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projects/ID.json - Project by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(300);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"pm.test(\"Delete Project\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.Id).to.eql(pm.environment.get(\"id\"));\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}projects/3926183.json",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"3926183.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projects/ID/items.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    \r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects/3926183/items.json",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"3926183",
+								"items.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projects/ID/doneitems.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    \r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"pm.test(\"Account doesn't exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.ErrorCode).to.eql(105);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}projects/3926183/doneitems.json",
+							"host": [
+								"{{url}}projects"
+							],
+							"path": [
+								"3926183",
+								"doneitems.json"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Filters API Methods",
+			"item": [
+				{
+					"name": "filters.json - List  the filters",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}filters.json",
+							"host": [
+								"{{url}}filters",
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filters/ID.json - Filters by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Check if Id 0 is equal Inbox\", function () {\r",
+									"   pm.expect(jsonData.Content).to.equal(\"Inbox\");\r",
+									"   pm.expect(jsonData.Id).to.equal(0);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}filters/0.json",
+							"host": [
+								"{{url}}filters"
+							],
+							"path": [
+								"0.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filters/ID/items.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must be valid\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.withBody;\r",
+									"});\r",
+									"  var jsonData = pm.response.json();\r",
+									"pm.test(\"Check  position\", function () {\r",
+									"   pm.expect(jsonData[0].Item).to.equal(\"Inbox\");\r",
+									"   pm.expect(jsonData[1].Content).to.equal(\"Today\");\r",
+									"   pm.expect(jsonData[2].Content).to.equal(\"Next\");\r",
+									"   pm.expect(jsonData[3].Content).to.equal(\"Recycle Bin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}filters/0/items.json",
+							"host": [
+								"{{url}}filters"
+							],
+							"path": [
+								"0",
+								"items.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filters/ID/doneitems.json",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}filters/-1/doneitems.json",
+							"host": [
+								"{{url}}filters"
+							],
+							"path": [
+								"-1",
+								"doneitems.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Items API Methods",
+			"item": [
+				{
+					"name": "items.json - All items",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}items.json",
+							"host": [
+								"{{url}}items",
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "items.json - Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n    \"Content\": \"New Item3\"\r\n   \r\n   \r\n}"
+						},
+						"url": {
+							"raw": "{{url}}items.json",
+							"host": [
+								"{{url}}items",
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "items/ID.json - Item by id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}items/10902965.json",
+							"host": [
+								"{{url}}items"
+							],
+							"path": [
+								"10902965.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "items/ID.json- Update item by Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ProjectId\": \"3925925\",\r\n    \"checked\": \"true\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}items/10902965.json",
+							"host": [
+								"{{url}}items"
+							],
+							"path": [
+								"10902965.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "items/ID.json -",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}items/10902964.json",
+							"host": [
+								"{{url}}items"
+							],
+							"path": [
+								"10902964.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "items/ID/RootItem.json - Root Item By child Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}items/10902964/RootItem.json",
+							"host": [
+								"{{url}}items"
+							],
+							"path": [
+								"10902964",
+								"RootItem.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "items/ID/DineRootItem.json",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}items/10902965/DoneRootItem.json",
+							"host": [
+								"{{url}}items"
+							],
+							"path": [
+								"10902965",
+								"DoneRootItem.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Icons  API Methods",
+			"item": [
+				{
+					"name": "icons/ID.json",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "kad123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "kad021@email.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}icons/10.json",
+							"host": [
+								"{{url}}icons"
+							],
+							"path": [
+								"10.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "kad021@email.com",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "kad123",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://todo.ly/api/"
+		},
+		{
+			"key": "key",
+			"value": ""
+		}
+	]
+}
